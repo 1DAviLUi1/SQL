@@ -1,3 +1,4 @@
+
 create TABLE if NOT EXISTS encaminhamento(
   id_encaminhamento INTEGER PRIMARY KEY AUTOINCREMENT,
   tipo_fo TEXT not NULL ,
@@ -121,3 +122,57 @@ CREATE table if not EXISTS aluno(
   id_fo integer,
   FOREIGN key (id_fo) REFERENCES fo (id_fo)
   );
+
+
+--Listar todos os encaminhamentosAdd commentMore actions
+SELECT * FROM encaminhamento ;
+
+--Listar todos os F.Os
+SELECT * FROM fato  ;
+
+--Listar todos as ocorrencias
+SELECT * FROM ocorrencia ;
+
+--Listar todos os funcionarios 
+SELECT * FROM funcionario  ;
+
+--Listar todos as frequencias
+SELECT * FROM frequencia;
+
+--Listar todos as atas
+SELECT * FROM ata ;
+
+--Listar todos os alunos ordenados nome
+SELECT * FROM aluno  ORDER BY nome;
+
+SELECT 
+  encaminhamento.id_encaminhamento,
+  aluno.nome AS nome_aluno,
+  funcionario.nome AS nome_funcionario,
+  encaminhamento.tipo_fo,
+  fato.descriçao as descriçao_fato,
+  fato.gravidade,
+  encaminhamento.justificativa,
+  encaminhamento.providencia,
+  encaminhamento.data
+  
+FROM encaminhamento
+
+INNER JOIN aluno ON aluno.cgm = encaminhamento.cgm
+INNER JOIN funcionario ON funcionario.cpf = encaminhamento.funcionario
+INNER JOIN fato ON fato.id_fato = encaminhamento.tipo_fo;
+
+select 
+	frequencia.id_frequencia,
+    frequencia.dia,
+    frequencia.quant_aulas,
+    frequencia.ausencias,
+    frequencia.turma,
+    frequencia.cgm,
+    aluno.nome as nome_aluno
+ 
+ from frequencia
+ 
+ INNER join aluno on aluno.cgm = frequencia.cgm;
+   
+  
